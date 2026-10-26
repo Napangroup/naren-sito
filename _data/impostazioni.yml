@@ -1,38 +1,15 @@
-# Dati del sito Naren Immobiliare.
-# Si modificano dal pannello Pages CMS. I campi vuoti non vengono mostrati sul sito.
-
-# Testi della pagina iniziale
-hero_titolo: "Case in affitto,"
-hero_evidenza: "pronte da vivere."
-hero_testo: "Naren Immobiliare acquista, rinnova e affitta immobili. Scegli la casa che fa per te e prenota una visita."
-video_apertura: ""
-chi_siamo: "Naren Immobiliare fa parte di Napan Group. Acquistiamo immobili, li rinnoviamo e li affittiamo, seguendo direttamente ogni casa e ogni inquilino."
-
-# Ristrutturazioni
-ristrutturazioni_testo: "Gli stessi lavori che facciamo sui nostri immobili, per la tua casa: dal rifacimento del bagno alla ristrutturazione completa."
-servizi: "Ristrutturazione completa, Bagno, Cucina, Impianti, Pavimenti, Infissi, Tinteggiatura"
-foto_prima: ""
-foto_dopo: ""
-
-# Dati societari
-ragione_sociale: ""
-sede_legale: ""
-piva: ""
-codice_fiscale: ""
-rea: ""
-capitale_sociale: ""
-pec: ""
-
-# Contatti
-email_info: "info@narenimmobiliare.it"
-telefono: ""
-whatsapp: ""
-email_privacy: ""
-
-# Moduli (preventivo e visite)
-modulo_indirizzo: ""
-modulo_fornitore: ""
-
-# Informative privacy e cookie
-fornitore_email: "Aruba S.p.A."
-data_aggiornamento: "26 ottobre 2026"
+hero_titolo: Case in affitto,
+hero_evidenza: pronte da vivere.
+hero_testo: Naren Immobiliare acquista, rinnova e affitta immobili. Scegli la
+  casa che fa per te e prenota una visita.
+chi_siamo: Naren Immobiliare fa parte di Napan Group. Acquistiamo immobili, li
+  rinnoviamo e li affittiamo, seguendo direttamente ogni casa e ogni inquilino.
+ristrutturazioni_testo: "Gli stessi lavori che facciamo sui nostri immobili, per
+  la tua casa: dal rifacimento del bagno alla ristrutturazione completa."
+servizi: Ristrutturazione completa, Bagno, Cucina, Impianti, Pavimenti, Infissi,
+  Tinteggiatura
+ragione_sociale: Naren Immobiliare srl
+sede_legale: Via Aniello Palumbo 120 Giugliano in Campana
+email_info: info@narenimmobiliare.it
+fornitore_email: Aruba S.p.A.
+data_aggiornamento: 26 ottobre 2026
