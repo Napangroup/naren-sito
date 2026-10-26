@@ -113,7 +113,7 @@ description: "Naren Immobiliare acquista, rinnova e affitta immobili. Guarda le 
             <span class="lbl l">Prima</span><span class="lbl r">Dopo</span>
             <input type="range" min="0" max="100" value="50" id="ba-range" aria-label="Confronta prima e dopo">
           </div>
-          <p class="ba-hint">Trascina per vedere il prima e il dopo{% unless s.foto_prima and s.foto_prima != "" %} (illustrazione){% endunless %}.</p>
+          <p class="ba-hint">Trascina per vedere il prima e il dopo{% if s.foto_prima == nil or s.foto_prima == "" or s.foto_dopo == nil or s.foto_dopo == "" %} (illustrazione){% elsif s.foto_illustrative %} (immagini illustrative){% endif %}.</p>
         </div>
       </div>
     </section>

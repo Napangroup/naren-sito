@@ -173,6 +173,11 @@ content:
       - name: foto_dopo
         label: "Ristrutturazioni: foto dopo"
         type: image
+      - name: foto_illustrative
+        label: "Ristrutturazioni: le foto sono illustrative"
+        type: boolean
+        default: false
+        description: "Accendilo se prima/dopo non sono di un vostro lavoro (es. foto di archivio): sotto comparirà «immagini illustrative»"
 
       - name: ragione_sociale
         label: Ragione sociale
