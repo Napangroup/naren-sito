@@ -101,10 +101,11 @@ description: "Naren Immobiliare acquista, rinnova e affitta immobili. Guarda le 
           <a class="btn btn-night" href="#preventivo">Richiedi un preventivo</a>
         </div>
         <div>
-          <div class="ba" id="ba">
-{%- if s.foto_prima and s.foto_prima != "" and s.foto_dopo and s.foto_dopo != "" %}
-            <img src="{{ s.foto_prima | escape }}" alt="Prima della ristrutturazione">
-            <div class="after"><img src="{{ s.foto_dopo | escape }}" alt="Dopo la ristrutturazione"></div>
+{%- assign ba_foto = false -%}{%- if s.foto_prima and s.foto_prima != "" and s.foto_dopo and s.foto_dopo != "" -%}{%- assign ba_foto = true -%}{%- endif %}
+          <div class="ba{% if ba_foto %} ba--foto{% endif %}" id="ba">
+{%- if ba_foto %}
+            <img src="{{ s.foto_prima | escape }}" alt="Prima della ristrutturazione" loading="lazy">
+            <div class="after"><img src="{{ s.foto_dopo | escape }}" alt="Dopo la ristrutturazione" loading="lazy"></div>
 {%- else %}
             <span class="illu" data-kind="prima" aria-hidden="true"></span>
             <div class="after"><span class="illu" data-kind="soggiorno" data-seed="1" aria-hidden="true"></span></div>

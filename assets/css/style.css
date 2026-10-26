@@ -236,6 +236,8 @@ footer .ph { color: #E9CF8E; }
 .services li { font-size: 14.5px; padding: 8px 13px; border: 1px solid var(--rule); border-radius: 999px; }
 .ba img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .ba .illu { position: absolute; inset: 0; }
+.ba.ba--foto { aspect-ratio: auto; }
+.ba.ba--foto > img { position: relative; display: block; height: auto; }
 .form-msg { font-size: 14.5px; min-height: 1em; }
 .form-msg.err { color: #9B1C1C; }
 .form-msg.ok { color: var(--ok); }
