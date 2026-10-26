@@ -1,0 +1,180 @@
+---
+layout: default
+title: "Naren Immobiliare | Immobili in affitto e ristrutturazioni"
+description: "Naren Immobiliare acquista, rinnova e affitta immobili. Guarda le case disponibili, prenota una visita o richiedi un preventivo di ristrutturazione."
+---
+{%- include vars.html -%}
+{%- assign immobili = site.immobili | sort: "ordine", "last" -%}
+{%- assign tour = nil -%}
+{%- for i in immobili -%}{%- if tour == nil and i.video and i.video != "" -%}{%- assign tour = i -%}{%- endif -%}{%- endfor -%}
+  <main id="contenuto">
+    <section class="hero" aria-labelledby="titolo">
+      <div class="wrap">
+        <div class="hero-text">
+          <h1 id="titolo">{{ s.hero_titolo | escape }} <em>{{ s.hero_evidenza | escape }}</em></h1>
+          <p>{{ s.hero_testo | escape }}</p>
+          <div class="hero-actions">
+            <a class="btn btn-gold" href="#immobili">Vedi gli immobili disponibili</a>
+            <a class="btn btn-line" href="#preventivo">Ristruttura casa tua</a>
+          </div>
+          <p class="hero-facts">
+            {%- if immobili.size > 0 %}<span><b>{{ immobili.size }}</b> {% if immobili.size == 1 %}immobile disponibile{% else %}immobili disponibili{% endif %}</span>{% else %}<span>Nuovi immobili in arrivo</span>{% endif -%}
+            <span>Visite su appuntamento</span><span>Parte del gruppo Napan</span>
+          </p>
+        </div>
+        <div class="scene">
+{%- if s.video_apertura and s.video_apertura != "" %}
+          <video class="hero-video" src="{{ s.video_apertura | escape }}" autoplay muted loop playsinline preload="metadata" aria-label="Video di presentazione"></video>
+{%- else %}
+          {% include palazzo.svg %}
+          <div class="tag-float" style="left: 47%; top: 30%; animation-delay: 3.4s"><span aria-hidden="true">●</span> Disponibile</div>
+{%- endif %}
+        </div>
+      </div>
+    </section>
+
+    <section id="immobili" aria-labelledby="t-imm">
+      <div class="wrap">
+        <div class="sec-head">
+          <div>
+            <p class="kicker">Immobili</p>
+            <h2 id="t-imm">Disponibili ora</h2>
+          </div>
+          <div class="filters" id="filters" role="group" aria-label="Filtra gli immobili" hidden></div>
+        </div>
+{%- if immobili.size > 0 %}
+        <div class="grid" id="grid">
+{%- for i in immobili %}
+{% include card.html immobile=i n=forloop.index %}
+{%- endfor %}
+        </div>
+        <p class="empty" id="no-match" hidden>Nessun immobile con queste caratteristiche al momento.</p>
+{%- else %}
+        <div class="empty">
+          <p><strong>Stiamo preparando le schede dei nostri immobili.</strong></p>
+          <p>Scrivici{% if email_info != "" %} a <a href="mailto:{{ email_info | escape }}">{{ email_info | escape }}</a>{% endif %} per sapere cosa è disponibile.</p>
+        </div>
+{%- endif %}
+      </div>
+    </section>
+
+    <section class="steps-band" id="come" aria-labelledby="t-come">
+      <div class="wrap">
+        <div class="sec-head">
+          <div>
+            <p class="kicker">Come funziona</p>
+            <h2 id="t-come">Dalla visita alle chiavi in tre passi</h2>
+          </div>
+        </div>
+        <ol class="steps">
+          <li class="rv"><h3>Scegli l'immobile</h3><p>Guarda foto, planimetria e prezzo di ogni scheda. Trovi solo immobili liberi: quelli già affittati non sono in vetrina.</p></li>
+          <li class="rv"><h3>Prenota una visita</h3><p>Indica il giorno che preferisci dalla scheda. Ti richiamiamo per confermare l'appuntamento.</p></li>
+          <li class="rv"><h3>Firma e trasferisciti</h3><p>Prepariamo il contratto e ti consegniamo le chiavi di un immobile pulito e pronto.</p></li>
+        </ol>
+      </div>
+    </section>
+
+{%- if tour %}
+    <section class="tour" aria-labelledby="t-tour">
+      <div class="wrap">
+        <div>
+          <p class="kicker kicker-gold">Video</p>
+          <h2 id="t-tour">Entra prima della visita</h2>
+          <p>Guarda il video di {{ tour.titolo | escape }}{% if tour.comune and tour.comune != "" %} a {{ tour.comune | escape }}{% endif %}, poi apri la scheda per tutti i dettagli.</p>
+          <p style="margin-top:22px"><a class="btn btn-gold" href="{{ tour.url }}">Apri la scheda</a></p>
+        </div>
+        <video class="tour-video" src="{{ tour.video | escape }}" controls playsinline preload="metadata"{% if tour.foto and tour.foto.size > 0 %} poster="{{ tour.foto | first | escape }}"{% endif %}></video>
+      </div>
+    </section>
+{%- endif %}
+
+    <section class="reno" id="ristrutturazioni" aria-labelledby="t-reno">
+      <div class="wrap">
+        <div>
+          <p class="kicker">Ristrutturazioni</p>
+          <h2 id="t-reno">Rinnoviamo anche casa tua</h2>
+          <p class="lead">{{ s.ristrutturazioni_testo | escape }}</p>
+          <ul class="services">
+{%- assign servizi = s.servizi | split: "," -%}
+{%- for v in servizi %}{% assign vv = v | strip %}{% if vv != "" %}<li>{{ vv | escape }}</li>{% endif %}{% endfor %}
+          </ul>
+          <a class="btn btn-night" href="#preventivo">Richiedi un preventivo</a>
+        </div>
+        <div>
+          <div class="ba" id="ba">
+{%- if s.foto_prima and s.foto_prima != "" and s.foto_dopo and s.foto_dopo != "" %}
+            <img src="{{ s.foto_prima | escape }}" alt="Prima della ristrutturazione">
+            <div class="after"><img src="{{ s.foto_dopo | escape }}" alt="Dopo la ristrutturazione"></div>
+{%- else %}
+            <span class="illu" data-kind="prima" aria-hidden="true"></span>
+            <div class="after"><span class="illu" data-kind="soggiorno" data-seed="1" aria-hidden="true"></span></div>
+{%- endif %}
+            <div class="handle" aria-hidden="true"></div>
+            <span class="lbl l">Prima</span><span class="lbl r">Dopo</span>
+            <input type="range" min="0" max="100" value="50" id="ba-range" aria-label="Confronta prima e dopo">
+          </div>
+          <p class="ba-hint">Trascina per vedere il prima e il dopo{% unless s.foto_prima and s.foto_prima != "" %} (illustrazione){% endunless %}.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote-band" id="preventivo" aria-labelledby="t-quote">
+      <div class="wrap quote">
+        <aside>
+          <p class="kicker">Preventivo</p>
+          <h2 id="t-quote">Raccontaci il lavoro da fare</h2>
+          <p>Compila il modulo: ti ricontattiamo per un sopralluogo e un preventivo dettagliato.</p>
+          <ul>
+            <li>Sopralluogo su appuntamento</li>
+            <li>Preventivo scritto, voce per voce</li>
+            <li>Un unico referente dall'inizio alla fine dei lavori</li>
+          </ul>
+        </aside>
+        <form class="box js-form" data-tipo="preventivo" data-endpoint="{{ modulo | escape }}" data-email="{{ email_info | escape }}"{% if modulo != "" %} action="{{ modulo | escape }}" method="POST"{% endif %} novalidate>
+          <input type="hidden" name="_subject" value="Richiesta di preventivo dal sito">
+          <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <fieldset>
+            <legend>Che lavori ti servono?</legend>
+            <div class="opts">
+{%- for v in servizi %}{% assign vv = v | strip %}{% if vv != "" %}
+              <label><input type="checkbox" name="Lavori" value="{{ vv | escape }}"> {{ vv | escape }}</label>
+{%- endif %}{% endfor %}
+            </div>
+          </fieldset>
+          <div class="row3">
+            <div class="field"><label class="l" for="q-tipo">Tipo di immobile</label>
+              <select id="q-tipo" name="Tipo di immobile"><option>Appartamento</option><option>Casa indipendente</option><option>Ufficio o negozio</option><option>Altro</option></select></div>
+            <div class="field"><label class="l" for="q-mq">Superficie (m²)</label><input type="number" id="q-mq" name="Superficie m2" min="5" inputmode="numeric" placeholder="es. 70"></div>
+            <div class="field"><label class="l" for="q-quando">Quando</label>
+              <select id="q-quando" name="Quando"><option>Appena possibile</option><option>Entro 3 mesi</option><option>Entro 6 mesi</option><option>Sto valutando</option></select></div>
+          </div>
+          <div class="field"><label class="l" for="q-comune">Comune</label><input type="text" id="q-comune" name="Comune" autocomplete="address-level2"></div>
+          <div class="field"><label class="l" for="q-desc">Descrivi il lavoro</label><textarea id="q-desc" name="Descrizione" placeholder="Per esempio: rifare il bagno di 6 m² con doccia al posto della vasca"></textarea></div>
+          <div class="row3">
+            <div class="field"><label class="l" for="q-nome">Nome e cognome</label><input type="text" id="q-nome" name="Nome" autocomplete="name" required></div>
+            <div class="field"><label class="l" for="q-tel">Telefono</label><input type="tel" id="q-tel" name="Telefono" autocomplete="tel" required></div>
+            <div class="field"><label class="l" for="q-mail">Email</label><input type="email" id="q-mail" name="email" autocomplete="email"></div>
+          </div>
+          <p class="form-note">Le foto degli ambienti aiutano: potrai inviarcele dopo il primo contatto.</p>
+          <label class="consent"><input type="checkbox" name="Privacy" value="Accettata" required> <span>Ho letto la <a href="/privacy-policy.html">privacy policy</a> e acconsento a essere ricontattato per questa richiesta.</span></label>
+          <p class="form-msg" role="alert"></p>
+          <div><button class="btn btn-night" type="submit">Invia la richiesta</button></div>
+        </form>
+      </div>
+    </section>
+
+    <section class="about" id="chi" aria-labelledby="t-chi">
+      <div class="wrap">
+        <div>
+          <p class="kicker">Chi siamo</p>
+          <h2 id="t-chi">Una società nuova, con un gruppo alle spalle</h2>
+          <p>{{ s.chi_siamo | escape }}</p>
+        </div>
+        <ul class="values">
+          <li class="rv"><h3>Immobili curati</h3><p>Ogni casa viene controllata e sistemata prima di entrare in vetrina.</p></li>
+          <li class="rv"><h3>Un referente unico</h3><p>Dalla visita alla firma, e anche dopo, parli sempre con la stessa persona.</p></li>
+          <li class="rv"><h3>Il gruppo Napan</h3><p>Alle spalle una holding che coordina società attive nei servizi, nell'energia e nella mobilità.</p></li>
+        </ul>
+      </div>
+    </section>
+  </main>

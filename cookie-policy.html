@@ -1,0 +1,38 @@
+---
+layout: legal
+title: "Cookie policy | Naren Immobiliare"
+description: "Informativa sull'uso dei cookie del sito narenimmobiliare.it."
+heading: "Cookie policy"
+indice:
+  - { id: cosa, titolo: "Cosa sono i cookie" }
+  - { id: questo-sito, titolo: "Quali cookie usa questo sito" }
+  - { id: consenso, titolo: "Perché non ti chiediamo il consenso" }
+  - { id: titolare, titolo: "Titolare e contatti" }
+---
+{%- include vars.html %}
+<section id="cosa">
+  <h2>Cosa sono i cookie</h2>
+  <p>I cookie sono piccoli file di testo che i siti salvano nel browser, per essere riletti alle visite successive. Strumenti analoghi, come il local storage o i pixel, sono trattati allo stesso modo. Si distinguono in cookie tecnici, necessari al funzionamento del sito, e cookie di profilazione o di analisi, che richiedono il consenso preventivo.</p>
+</section>
+
+<section id="questo-sito">
+  <h2>Quali cookie usa questo sito</h2>
+  <p>Il sito www.narenimmobiliare.it non traccia i visitatori:</p>
+  <ul>
+    <li>non utilizza cookie, né tecnici né di profilazione o marketing;</li>
+    <li>non utilizza strumenti di statistica o di analisi del traffico;</li>
+    <li>foto, video e caratteri tipografici sono ospitati insieme al sito, senza contenuti incorporati da piattaforme esterne come YouTube o Google Maps;</li>
+    <li>non salva informazioni nel tuo browser.</li>
+  </ul>
+  <p>I link a WhatsApp e ai siti del gruppo aprono servizi esterni solo se li scegli tu; da quel momento si applicano le loro informative.</p>
+</section>
+
+<section id="consenso">
+  <h2>Perché non ti chiediamo il consenso</h2>
+  <p>Secondo l'art. 122 del Codice privacy (d.lgs. 196/2003) e le Linee guida del Garante del 10 giugno 2021, il consenso è necessario solo per i cookie e gli strumenti diversi da quelli tecnici. Il sito non ne utilizza, quindi non mostra un banner per il consenso. Se in futuro li introdurremo, aggiorneremo questa pagina e ti chiederemo una scelta esplicita prima di attivarli.</p>
+</section>
+
+<section id="titolare">
+  <h2>Titolare e contatti</h2>
+  <p>Il titolare del trattamento è {{ nome | escape }}{% if sede != "" %}, con sede legale in {{ sede | escape }}{% endif %}.{% if email_privacy != "" %} Per qualsiasi domanda puoi scrivere a <a href="mailto:{{ email_privacy | escape }}">{{ email_privacy | escape }}</a>.{% endif %} Per tutte le informazioni consulta la <a href="/privacy-policy.html">privacy policy</a>.</p>
+</section>

@@ -1,0 +1,26 @@
+{%- assign i = include.immobile -%}
+{%- assign foto0 = "" -%}{%- if i.foto and i.foto.size > 0 -%}{%- assign foto0 = i.foto | first -%}{%- endif -%}
+          <article class="card rv" data-tipologia="{{ i.tipologia | escape }}" data-contratto="{{ i.contratto | escape }}" data-arredato="{% if i.arredato %}1{% else %}0{% endif %}">
+            <a class="pic" href="{{ i.url }}" aria-label="{{ i.titolo | escape }}">
+{%- if foto0 != "" %}
+              <img src="{{ foto0 | escape }}" alt="{{ i.titolo | escape }}" loading="lazy" width="800" height="600">
+{%- else %}
+              <span class="illu" data-kind="soggiorno" data-seed="{{ include.n }}" aria-hidden="true"></span>
+{%- endif %}
+              <span class="badge" data-from="{{ i.disponibile_da }}">{% if i.contratto == "Vendita" %}In vendita{% else %}Disponibile{% endif %}</span>
+            </a>
+            <div class="body">
+              <p class="type">{{ i.tipologia | escape }}{% if i.comune and i.comune != "" %} · {{ i.comune | escape }}{% endif %}</p>
+              <h3><a href="{{ i.url }}">{{ i.titolo | escape }}</a></h3>
+              <p class="meta">
+{%- if i.mq %}{{ i.mq }} m²{% endif -%}
+{%- if i.locali %} · {{ i.locali }} {% if i.locali == 1 %}locale{% else %}locali{% endif %}{% endif -%}
+{%- if i.piano and i.piano != "" %} · {{ i.piano | escape }}{% endif -%}
+{%- if i.arredato %} · Arredato{% endif -%}
+              </p>
+              <div class="price">
+                <span>{% if i.prezzo %}<b>€ <span class="num">{{ i.prezzo }}</span></b>{% if i.contratto != "Vendita" %} <small>/ mese</small>{% endif %}{% else %}<small>Prezzo su richiesta</small>{% endif %}</span>
+                <a class="more" href="{{ i.url }}">Vedi la scheda</a>
+              </div>
+            </div>
+          </article>

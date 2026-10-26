@@ -1,0 +1,243 @@
+# Pannello di gestione del sito Naren Immobiliare (Pages CMS, app.pagescms.org)
+media:
+  input: assets/uploads
+  output: /assets/uploads
+
+content:
+  # ---------------------------------------------------------------- Immobili
+  - name: immobili
+    label: Immobili
+    type: collection
+    path: _immobili
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      fields: [titolo, published, tipologia, comune, prezzo]
+      primary: titolo
+      sort: [ordine, titolo]
+      default:
+        sort: ordine
+        order: asc
+    fields:
+      - name: titolo
+        label: Titolo della scheda
+        type: string
+        required: true
+        description: "Es. Bilocale con balcone, Ufficio in centro"
+      - name: published
+        label: Visibile sul sito
+        type: boolean
+        default: true
+        description: "Toglila quando l'immobile è affittato o venduto: la scheda sparisce dal sito ma resta qui"
+      - name: contratto
+        label: Contratto
+        type: select
+        options:
+          values: [Affitto, Vendita]
+      - name: tipologia
+        label: Tipologia
+        type: select
+        options:
+          values: [Monolocale, Bilocale, Trilocale, Quadrilocale, Appartamento, Attico, Casa indipendente, Villa, Ufficio, Negozio, Magazzino, Capannone, Box o garage, Posto auto, Terreno]
+      - name: comune
+        label: Comune
+        type: string
+      - name: zona
+        label: Zona o indirizzo
+        type: string
+        description: "Facoltativo. Es. Zona centro, vicino alla stazione"
+      - name: prezzo
+        label: Prezzo (€)
+        type: number
+        description: "Canone mensile per l'affitto, prezzo totale per la vendita. Vuoto = Prezzo su richiesta"
+        options:
+          min: 0
+      - name: spese
+        label: Spese condominiali mensili (€)
+        type: number
+        options:
+          min: 0
+      - name: mq
+        label: Superficie (m²)
+        type: number
+        options:
+          min: 0
+      - name: locali
+        label: Numero di locali
+        type: number
+        options:
+          min: 0
+      - name: bagni
+        label: Bagni
+        type: number
+        options:
+          min: 0
+      - name: piano
+        label: Piano
+        type: string
+        description: "Es. Piano terra, Primo piano, Ultimo piano"
+      - name: arredato
+        label: Arredato
+        type: boolean
+        default: false
+      - name: balcone
+        label: Balcone o terrazzo
+        type: boolean
+        default: false
+      - name: posto_auto
+        label: Posto auto o box
+        type: boolean
+        default: false
+      - name: ascensore
+        label: Ascensore
+        type: boolean
+        default: false
+      - name: riscaldamento
+        label: Riscaldamento
+        type: select
+        options:
+          values: [Autonomo, Centralizzato, Pompa di calore, Assente]
+      - name: classe_energetica
+        label: Classe energetica
+        type: select
+        description: "Obbligatoria negli annunci di vendita e affitto. Vuoto = In fase di certificazione"
+        options:
+          values: [A4, A3, A2, A1, B, C, D, E, F, G]
+      - name: disponibile_da
+        label: Disponibile dal
+        type: date
+        description: "Facoltativo. Se la data è futura, sul sito compare «Disponibile dal …»"
+      - name: foto
+        label: Foto
+        type: image
+        description: "La prima foto è la copertina. Formato orizzontale, JPG, max 2 MB ciascuna"
+        options:
+          multiple:
+            max: 20
+          extensions: [jpg, jpeg, png, webp]
+      - name: planimetria
+        label: Planimetria
+        type: image
+        options:
+          extensions: [jpg, jpeg, png, webp]
+      - name: video
+        label: Video
+        type: file
+        description: "Facoltativo. File MP4 girato in orizzontale, max 25 MB"
+        options:
+          extensions: [mp4]
+      - name: ordine
+        label: Ordine in vetrina
+        type: number
+        description: "1 = primo. Le schede senza numero vanno in fondo"
+      - name: body
+        label: Descrizione
+        type: rich-text
+
+  # ---------------------------------------------------------------- Dati del sito
+  - name: impostazioni
+    label: Dati del sito
+    type: file
+    path: _data/impostazioni.yml
+    format: yaml
+    fields:
+      - name: hero_titolo
+        label: "Apertura: titolo"
+        type: string
+      - name: hero_evidenza
+        label: "Apertura: parte in oro del titolo"
+        type: string
+      - name: hero_testo
+        label: "Apertura: testo"
+        type: text
+      - name: video_apertura
+        label: "Apertura: video"
+        type: file
+        description: "Facoltativo. MP4 orizzontale senza audio, max 15 MB. Se vuoto si vede il palazzo illustrato"
+        options:
+          extensions: [mp4]
+      - name: chi_siamo
+        label: Testo «Chi siamo»
+        type: text
+      - name: ristrutturazioni_testo
+        label: "Ristrutturazioni: testo"
+        type: text
+      - name: servizi
+        label: "Ristrutturazioni: lavori offerti"
+        type: string
+        description: "Separati da virgola. Compaiono nella sezione e nel modulo di preventivo"
+      - name: foto_prima
+        label: "Ristrutturazioni: foto prima"
+        type: image
+        description: "Prima e dopo devono essere scattate dalla stessa posizione"
+      - name: foto_dopo
+        label: "Ristrutturazioni: foto dopo"
+        type: image
+
+      - name: ragione_sociale
+        label: Ragione sociale
+        type: string
+        description: "Obbligatorio per legge. Es. Naren Immobiliare S.r.l."
+      - name: sede_legale
+        label: Sede legale
+        type: string
+        description: "Obbligatorio per legge. Via, numero civico, CAP, Città (Provincia)"
+      - name: piva
+        label: Partita IVA
+        type: string
+        description: "Obbligatorio per legge. 11 cifre"
+        pattern:
+          regex: "^$|^[0-9]{11}$"
+          message: "La partita IVA deve avere 11 cifre"
+      - name: codice_fiscale
+        label: Codice fiscale
+        type: string
+        description: "Solo se diverso dalla partita IVA"
+      - name: rea
+        label: Numero REA
+        type: string
+        description: "Obbligatorio per legge. Es. CE-123456"
+      - name: capitale_sociale
+        label: Capitale sociale
+        type: string
+        description: "Obbligatorio per legge. Es. € 10.000,00 i.v."
+      - name: pec
+        label: PEC
+        type: string
+        pattern:
+          regex: "^$|^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+          message: "Indirizzo PEC non valido"
+
+      - name: email_info
+        label: Email per richieste e contatti
+        type: string
+        description: "Riceve le richieste dei moduli se non è configurato un servizio di invio"
+        pattern:
+          regex: "^$|^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+          message: "Indirizzo email non valido"
+      - name: telefono
+        label: Telefono
+        type: string
+      - name: whatsapp
+        label: Numero WhatsApp
+        type: string
+        description: "Con prefisso internazionale, es. 39 333 1234567. Se vuoto il pulsante WhatsApp non compare"
+      - name: email_privacy
+        label: Email per richieste privacy
+        type: string
+        description: "Se vuoto si usa l'email per richieste e contatti"
+
+      - name: modulo_indirizzo
+        label: "Moduli: indirizzo del servizio di invio"
+        type: string
+        description: "Facoltativo. Es. https://formspree.io/f/abcd1234. Se vuoto, i moduli preparano un'email al tuo indirizzo"
+      - name: modulo_fornitore
+        label: "Moduli: nome del servizio di invio"
+        type: string
+        description: "Per la privacy policy. Es. Formspree, Inc. (USA)"
+      - name: fornitore_email
+        label: Fornitore della posta elettronica
+        type: string
+      - name: data_aggiornamento
+        label: Data di aggiornamento delle informative
+        type: string

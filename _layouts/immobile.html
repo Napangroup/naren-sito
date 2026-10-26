@@ -1,0 +1,115 @@
+---
+layout: default
+---
+{%- include vars.html -%}
+{%- assign foto = page.foto -%}
+{%- assign nfoto = 0 -%}{%- if foto -%}{%- assign nfoto = foto.size -%}{%- endif -%}
+  <main id="contenuto" class="scheda">
+    <div class="wrap">
+      <p class="crumb"><a href="/#immobili">← Tutti gli immobili</a></p>
+      <div class="scheda-grid">
+        <div class="gallery" id="gallery">
+          <button class="g-main" type="button" id="g-main" aria-label="Apri le foto a tutto schermo">
+{%- if nfoto > 0 %}
+            <img src="{{ foto | first | escape }}" alt="{{ page.titolo | escape }}, foto 1" width="1200" height="900">
+{%- else %}
+            <span class="illu" data-kind="soggiorno" data-seed="{{ page.ordine | default: 1 }}" aria-hidden="true"></span>
+{%- endif %}
+          </button>
+          <div class="thumbs" id="thumbs">
+{%- if nfoto > 0 %}
+{%- for f in foto %}
+            <button type="button" data-src="{{ f | escape }}" aria-label="Foto {{ forloop.index }}"{% if forloop.first %} aria-current="true"{% endif %}><img src="{{ f | escape }}" alt="" loading="lazy" width="200" height="150"></button>
+{%- endfor %}
+{%- else %}
+            <button type="button" data-illu="soggiorno" aria-label="Soggiorno" aria-current="true"><span class="illu" data-kind="soggiorno" data-seed="{{ page.ordine | default: 1 }}"></span></button>
+            <button type="button" data-illu="camera" aria-label="Camera"><span class="illu" data-kind="camera" data-seed="{{ page.ordine | default: 1 }}"></span></button>
+            <button type="button" data-illu="cucina" aria-label="Cucina"><span class="illu" data-kind="cucina" data-seed="{{ page.ordine | default: 1 }}"></span></button>
+{%- endif %}
+          </div>
+{%- if nfoto == 0 %}
+          <p class="form-note">Le foto arriveranno a breve. Le immagini qui sopra sono illustrative.</p>
+{%- endif %}
+        </div>
+
+        <div class="info">
+          <p class="kicker">{{ page.tipologia | escape }}{% if page.contratto == "Vendita" %} in vendita{% else %} in affitto{% endif %}{% if page.comune and page.comune != "" %} · {{ page.comune | escape }}{% endif %}</p>
+          <h1>{{ page.titolo | escape }}</h1>
+{%- if page.zona and page.zona != "" %}
+          <p class="zona">{{ page.zona | escape }}</p>
+{%- endif %}
+          <p class="big-price">{% if page.prezzo %}<b>€ <span class="num">{{ page.prezzo }}</span></b>{% if page.contratto != "Vendita" %}<small> al mese{% if page.spese %} + € <span class="num">{{ page.spese }}</span> di spese{% endif %}</small>{% endif %}{% else %}<small>Prezzo su richiesta</small>{% endif %}</p>
+          <p><span class="badge static" data-from="{{ page.disponibile_da }}">{% if page.contratto == "Vendita" %}In vendita{% else %}Disponibile{% endif %}</span></p>
+          <dl class="specs">
+{%- if page.mq %}<div><dt>Superficie</dt><dd>{{ page.mq }} m²</dd></div>{% endif -%}
+{%- if page.locali %}<div><dt>Locali</dt><dd>{{ page.locali }}</dd></div>{% endif -%}
+{%- if page.bagni %}<div><dt>Bagni</dt><dd>{{ page.bagni }}</dd></div>{% endif -%}
+{%- if page.piano and page.piano != "" %}<div><dt>Piano</dt><dd>{{ page.piano | escape }}</dd></div>{% endif -%}
+            <div><dt>Arredamento</dt><dd>{% if page.arredato %}Arredato{% else %}Non arredato{% endif %}</dd></div>
+{%- if page.riscaldamento and page.riscaldamento != "" %}<div><dt>Riscaldamento</dt><dd>{{ page.riscaldamento | escape }}</dd></div>{% endif -%}
+            <div><dt>Classe energetica</dt><dd>{% if page.classe_energetica and page.classe_energetica != "" %}{{ page.classe_energetica | escape }}{% else %}In fase di certificazione{% endif %}</dd></div>
+{%- capture extra -%}{% if page.balcone %}Balcone · {% endif %}{% if page.posto_auto %}Posto auto · {% endif %}{% if page.ascensore %}Ascensore · {% endif %}{%- endcapture -%}
+{%- if extra != "" %}<div><dt>Dotazioni</dt><dd>{{ extra | remove_last: " · " }}</dd></div>{% endif %}
+          </dl>
+          <div class="cta-row">
+            <a class="btn btn-night" href="#visita">Prenota una visita</a>
+{%- if whatsapp != "" %}
+            <a class="btn btn-ghost" href="https://wa.me/{{ whatsapp | escape }}?text={{ 'Buongiorno, vorrei informazioni su ' | append: page.titolo | url_encode }}" rel="noopener">Scrivici su WhatsApp</a>
+{%- endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="scheda-body">
+        <div class="desc">
+          <h2>Descrizione</h2>
+          {{ content }}
+{%- if page.planimetria and page.planimetria != "" %}
+          <h2>Planimetria</h2>
+          <a href="{{ page.planimetria | escape }}" class="plan-img"><img src="{{ page.planimetria | escape }}" alt="Planimetria di {{ page.titolo | escape }}" loading="lazy"></a>
+{%- endif %}
+{%- if page.video and page.video != "" %}
+          <h2>Video</h2>
+          <video class="tour-video" src="{{ page.video | escape }}" controls playsinline preload="metadata"{% if nfoto > 0 %} poster="{{ foto | first | escape }}"{% endif %}></video>
+{%- endif %}
+        </div>
+
+        <form class="box js-form" id="visita" data-tipo="visita" data-endpoint="{{ modulo | escape }}" data-email="{{ email_info | escape }}"{% if modulo != "" %} action="{{ modulo | escape }}" method="POST"{% endif %} novalidate>
+          <input type="hidden" name="_subject" value="Richiesta di visita: {{ page.titolo | escape }}">
+          <input type="hidden" name="Immobile" value="{{ page.titolo | escape }} ({{ site.url }}{{ page.url }})">
+          <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <h2>Prenota una visita</h2>
+          <div class="field"><label class="l" for="v-nome">Nome e cognome</label><input type="text" id="v-nome" name="Nome" autocomplete="name" required></div>
+          <div class="row2">
+            <div class="field"><label class="l" for="v-tel">Telefono</label><input type="tel" id="v-tel" name="Telefono" autocomplete="tel" required></div>
+            <div class="field"><label class="l" for="v-mail">Email</label><input type="email" id="v-mail" name="email" autocomplete="email"></div>
+          </div>
+          <div class="field"><label class="l" for="v-data">Giorno preferito</label><input type="date" id="v-data" name="Giorno preferito"></div>
+          <div class="field"><label class="l" for="v-note">Note</label><textarea id="v-note" name="Note" placeholder="Per esempio: preferisco nel pomeriggio"></textarea></div>
+          <label class="consent"><input type="checkbox" name="Privacy" value="Accettata" required> <span>Ho letto la <a href="/privacy-policy.html">privacy policy</a> e acconsento a essere ricontattato.</span></label>
+          <p class="form-msg" role="alert"></p>
+          <div><button class="btn btn-night" type="submit">Prenota la visita</button></div>
+        </form>
+      </div>
+
+{%- assign altri = site.immobili | sort: "ordine", "last" -%}
+{%- if altri.size > 1 %}
+      <section class="altri" aria-labelledby="t-altri">
+        <h2 id="t-altri">Altri immobili</h2>
+        <div class="grid">
+{%- assign k = 0 -%}
+{%- for i in altri %}{% if i.url != page.url and k < 4 %}{% assign k = k | plus: 1 %}
+{% include card.html immobile=i n=forloop.index %}
+{%- endif %}{% endfor %}
+        </div>
+      </section>
+{%- endif %}
+    </div>
+  </main>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Foto di {{ page.titolo | escape }}">
+    <button class="close" type="button" data-close aria-label="Chiudi">×</button>
+    <button class="lb-nav prev" type="button" aria-label="Foto precedente">‹</button>
+    <div class="lb-stage" id="lb-stage"></div>
+    <button class="lb-nav next" type="button" aria-label="Foto successiva">›</button>
+  </dialog>

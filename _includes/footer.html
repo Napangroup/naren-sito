@@ -1,0 +1,35 @@
+{%- include vars.html -%}
+<footer class="foot" id="contatti">
+  <div class="wrap">
+    <div class="cols">
+      <a href="/" class="flogo" aria-label="Naren Immobiliare"><img src="/assets/img/logo-naren-negativo.svg" alt="Naren Immobiliare" width="220" height="101"></a>
+      <div>
+        <h2 class="fh">Contatti</h2>
+        <p>
+{%- if email_info != "" %}<a href="mailto:{{ email_info | escape }}">{{ email_info | escape }}</a><br>{% endif -%}
+{%- if telefono != "" %}<a href="tel:{{ tel_link | escape }}">{{ telefono | escape }}</a><br>{% endif -%}
+{%- if whatsapp != "" %}<a href="https://wa.me/{{ whatsapp | escape }}" rel="noopener">WhatsApp</a><br>{% endif -%}
+{%- if sede != "" %}{{ sede | escape }}{% endif -%}
+        </p>
+      </div>
+      <div>
+        <h2 class="fh">Il sito</h2>
+        <p><a href="/#immobili">Immobili</a><br><a href="/#preventivo">Preventivi</a><br><a href="/privacy-policy.html">Privacy policy</a><br><a href="/cookie-policy.html">Cookie policy</a></p>
+      </div>
+      <div>
+        <h2 class="fh">Gruppo</h2>
+        <p><a href="https://www.napangroup.it" rel="noopener">Napan Group</a></p>
+      </div>
+    </div>
+{%- capture legale -%}
+{%- if ragione != "" %}<span>{{ ragione | escape }}</span>{% endif -%}
+{%- if piva != "" -%}
+  {%- if cf != "" and cf != piva %}<span>P.IVA {{ piva | escape }} – C.F. {{ cf | escape }}</span>{% else %}<span>P.IVA e C.F. {{ piva | escape }}</span>{% endif -%}
+{%- endif -%}
+{%- if rea != "" %}<span>REA {{ rea | escape }}</span>{% endif -%}
+{%- if capitale != "" %}<span>Capitale sociale {{ capitale | escape }}</span>{% endif -%}
+{%- if pec != "" %}<span>PEC {{ pec | escape }}</span>{% endif -%}
+{%- endcapture %}
+    <p class="fine">{{ legale }}<span>© {{ site.time | date: "%Y" }} Naren Immobiliare</span></p>
+  </div>
+</footer>

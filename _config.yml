@@ -1,0 +1,26 @@
+# Naren Immobiliare — configurazione Jekyll per GitHub Pages
+title: Naren Immobiliare
+url: "https://www.narenimmobiliare.it"
+lang: it
+timezone: Europe/Rome
+
+# Le schede degli immobili sono in _immobili/ (una per file) e si gestiscono dal pannello Pages CMS.
+# Il campo "published" (nel pannello: "Visibile sul sito") toglie la scheda dal sito quando è false.
+collections:
+  immobili:
+    output: true
+    permalink: /immobili/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: immobili
+    values:
+      layout: immobile
+
+plugins:
+  - jekyll-sitemap
+
+exclude:
+  - LEGGIMI.md
+  - README.md
